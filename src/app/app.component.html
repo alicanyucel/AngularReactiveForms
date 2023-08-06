@@ -1,0 +1,73 @@
+<h1>Reactive Form ile Personel Ekleme</h1>
+<div *ngIf="!isUpdateFormActive">
+<form [formGroup]="addForm">
+  <div>
+    Personel Adı
+    <input formControlName="name" type="text">
+  </div>
+  <div>
+    Bölümü
+    <select formControlName="profession">
+      <option>Muhasebe</option>
+      <option>Finans</option>
+      <option>Yazılım</option>
+    </select>
+  </div>
+  <div>
+    İşe Giriş Tarihi
+    <input type="date" formControlName="startingDate">
+  </div>
+  <div>
+    <button [disabled]="!addForm.valid" (click)="save()">Kaydet</button>
+  </div>
+</form>
+</div>
+
+<div *ngIf="isUpdateFormActive">
+  <form [formGroup]="updateForm">
+    <div>
+      Personel Adı
+      <input formControlName="name" type="text">
+    </div>
+    <div>
+      Bölümü
+      <select formControlName="profession">
+        <option>Muhasebe</option>
+        <option>Finans</option>
+        <option>Yazılım</option>
+      </select>
+    </div>
+    <div>
+      İşe Giriş Tarihi
+      <input type="date" formControlName="startingDate">
+    </div>
+    <div>
+      <button [disabled]="!updateForm.valid" (click)="update()">Güncelle</button>
+      <button (click)="cancel()">Vazgeç</button>
+    </div>
+  </form>
+</div>
+
+<hr>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Personel Adı</th>
+      <th>Bölümü</th>
+      <th>İşe Giriş Tarihi</th>
+      <th>İşlemler</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let e of employees let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{e.name}}</td>
+      <td>{{e.profession}}</td>
+      <td>{{e.startingDate | date: 'dd.MM.yyyy'}}</td>
+      <td>
+        <button (click)="get(e,i)">Güncelle</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
